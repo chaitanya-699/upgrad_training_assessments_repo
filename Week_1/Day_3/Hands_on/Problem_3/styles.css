@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #f4f6f8;
+}
+
+.features {
+  padding: 40px;
+  text-align: center;
+}
+
+.features h2 {
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+  max-width: 500px;
+  margin: auto;
+}
+
+.feature-list li {
+  background-color: #ffffff;
+  color: #333;
+  padding: 15px;
+  margin: 10px 0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.features ul li:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
