@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Filter</title>
+</head>
+<body>
+
+  <h2>Employee Management</h2>
+
+  <label>Select Job: </label>
+  <select id="jobSelect">
+    <option value="All">All Employees</option>
+    <option value="Manager">Manager</option>
+    <option value="Salesman">Salesman</option>
+    <option value="Clerk">Clerk</option>
+  </select>
+
+  <button onclick="showEmployees()">Show Emps</button>
+
+  <br><br>
+
+  <table border="1" cellpadding="8" id="empTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Job</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const employees = [
+      { id: 1, name: "Ravi", job: "Manager", salary: 60000 },
+      { id: 2, name: "Sita", job: "Salesman", salary: 30000 },
+      { id: 3, name: "Amit", job: "Clerk", salary: 20000 },
+      { id: 4, name: "Kiran", job: "Manager", salary: 65000 },
+      { id: 5, name: "Neha", job: "Salesman", salary: 32000 }
+    ];
+
+    const showEmployees = () => {
+      const selectedJob = document.getElementById("jobSelect").value;
+
+      const filteredEmployees =
+        selectedJob === "All"
+          ? employees
+          : employees.filter(emp => emp.job === selectedJob);
+
+      const tableBody = document.querySelector("#empTable tbody");
+
+      tableBody.innerHTML = filteredEmployees
+        .map(emp => `
+          <tr>
+            <td>${emp.id}</td>
+            <td>${emp.name}</td>
+            <td>${emp.job}</td>
+            <td>${emp.salary}</td>
+          </tr>
+        `).join("")
+        ;
+    };
+  </script>
+
+</body>
+</html>

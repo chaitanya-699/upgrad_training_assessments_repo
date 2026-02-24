@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Student Marks Analyzer</title>
+  </head>
+  <body>
+    <h2>Student Marks Analyzer</h2>
+    <button onclick="analyzeMarks()">Analyze Marks</button>
+    <pre id="output"></pre>
+
+    <script>
+      const studentMarks = [78, 85, 62, 90, 55];
+
+      const calculateTotal = (marks) =>
+        marks.reduce((total, mark) => total + mark, 0);
+
+      const calculateAverage = (marks) => calculateTotal(marks) / marks.length;
+
+      const getResult = (average) => (average >= 40 ? "Pass" : "Fail");
+
+      const analyzeMarks = () => {
+        const total = calculateTotal(studentMarks);
+        const average = calculateAverage(studentMarks);
+        const result = getResult(average);
+
+        document.getElementById("output").innerText = `
+            Student Marks: ${studentMarks.map((mark) => mark).join(", ")}
+            Total Marks: ${total}
+            Average: ${average.toFixed(2)}
+            Result: ${result}`;
+      };
+    </script>
+  </body>
+</html>

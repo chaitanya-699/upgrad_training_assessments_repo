@@ -4,9 +4,7 @@
     <title>Location Logger</title>
 </head>
 <body onload="loadLocations()">
-
 <h2>Location Logger</h2>
-
 <button onclick="getLocation()">Get My Location</button>
 
 <p id="output"></p>
@@ -27,10 +25,9 @@ function success(position) {
         "Latitude: " + lat + "<br>Longitude: " + lon;
 
     var locations = JSON.parse(localStorage.getItem("locations")) || [];
-    locations.unshift({lat, lon, time: new Date().toLocaleString()});
+    locations.unshift({lat, lon, time: new Date().toLocaleString()});k
     locations = locations.slice(0,5);
     localStorage.setItem("locations", JSON.stringify(locations));
-
     loadLocations();
 }
 
@@ -43,8 +40,7 @@ function loadLocations() {
     var locations = JSON.parse(localStorage.getItem("locations")) || [];
     var list = document.getElementById("history");
     list.innerHTML = "";
-
-    locations.forEach(function(loc) {
+    locations.forEach((loc) => {
         var li = document.createElement("li");
         li.innerHTML = loc.lat + ", " + loc.lon + " - " + loc.time;
         list.appendChild(li);
