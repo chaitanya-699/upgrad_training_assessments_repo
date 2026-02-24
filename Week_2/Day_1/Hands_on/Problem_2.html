@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Form Validation</title>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+Name: <input type="text" id="name" onchange="validateForm()"><br>
+<span id="nameMsg"></span><br><br>
+
+Email: <input type="text" id="email" onchange="validateForm()"><br>
+<span id="emailMsg"></span><br><br>
+
+Age: <input type="number" id="age" onchange="validateForm()"><br>
+<span id="ageMsg"></span><br><br>
+
+<button onclick="submitForm()">Submit</button>
+
+<script>
+function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var age = document.getElementById("age").value;
+
+    document.getElementById("nameMsg").innerHTML =
+        name === "" ? "Name cannot be empty" : "";
+
+    document.getElementById("emailMsg").innerHTML =
+        email.includes("@") ? "" : "Email must contain @";
+
+    document.getElementById("ageMsg").innerHTML =
+        age > 18 ? "" : "Age must be greater than 18";
+}
+
+function submitForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var age = document.getElementById("age").value;
+
+    if (name !== "" && email.includes("@") && age > 18) {
+        sessionStorage.setItem("userData", JSON.stringify({name, email, age}));
+        alert("Data Stored in Session");
+    } else {
+        alert("Fix validation errors first");
+    }
+}
+</script>
+
+</body>
+</html>
