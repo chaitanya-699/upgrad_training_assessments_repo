@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Task Manager</title>
+</head>
+<body>
+
+<h2>Task Manager</h2>
+
+<input type="text" id="taskInput" placeholder="Enter Task">
+<button id="addBtn">Add Task</button>
+<button id="deleteBtn">Delete Last Task</button>
+<button id="listBtn">List Tasks</button>
+
+<pre id="output"></pre>
+
+<script type="module">
+let tasks = []
+
+const output = document.getElementById("output")
+
+const simulateStoragePromise = (action, data) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            try {
+                action(data)
+                resolve(tasks)
+            } catch (err) {
+                reject(err)
+            }
+        }, 10)
+    })
+}
+
+const addTask = (task) => tasks.push(task)
+const deleteTask = () => tasks.pop()
+
+const formatTasks = (taskList) => `
+Task List:
+${taskList.length === 0 ? "No Tasks Found" : taskList.map((t, i) => `${i + 1}. ${t}`).join("\n")}
+`
+
+const addTaskAsync = async () => {
+    try {
+        const task = document.getElementById("taskInput").value
+        await simulateStoragePromise(addTask, task)
+        output.textContent = "Task Added"
+    } catch (err) {
+        output.textContent = `Error: ${err.message}`
+    }
+}
+
+const deleteTaskAsync = async () => {
+    try {
+        await simulateStoragePromise(deleteTask)
+        output.textContent = "Last Task Deleted"
+    } catch (err) {
+        output.textContent = `Error: ${err.message}`
+    }
+}
+
+const listTasksAsync = async () => {
+    try {
+        const list = await simulateStoragePromise(() => {})
+        output.textContent = formatTasks(list)
+    } catch (err) {
+        output.textContent = `Error: ${err.message}`
+    }
+}
+
+document.getElementById("addBtn").addEventListener("click", addTaskAsync)
+document.getElementById("deleteBtn").addEventListener("click", deleteTaskAsync)
+document.getElementById("listBtn").addEventListener("click", listTasksAsync)
+</script>
+
+</body>
+</html>

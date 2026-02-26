@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Theme Toggle</title>
+    <style>
+        body {
+            font-family: Arial;
+            transition: 0.3s;
+        }
+        .dark {
+            background-color: #121212;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Theme Toggle App</h2>
+<button id="toggleBtn">Toggle Theme</button>
+
+<script>
+const body = document.body
+const toggleBtn = document.getElementById("toggleBtn")
+
+const applyTheme = (theme) => {
+    if (theme === "dark") {
+        body.classList.add("dark")
+    } else {
+        body.classList.remove("dark")
+    }
+}
+
+const toggleTheme = () => {
+    const currentTheme = localStorage.getItem("theme") || "light"
+    const newTheme = currentTheme === "light" ? "dark" : "light"
+    localStorage.setItem("theme", newTheme)
+    applyTheme(newTheme)
+}
+
+toggleBtn.addEventListener("click", toggleTheme)
+
+const savedTheme = localStorage.getItem("theme") || "light"
+applyTheme(savedTheme)
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript OOP Hands-On</title>
+</head>
+<body>
+
+<h2>Open Console to See Output</h2>
+
+<script>
+
+/* =========================
+   Problem 1 — Encapsulation
+========================= */
+
+class Student {
+    constructor(name, rollNumber, marks) {
+        this.name = name
+        this.rollNumber = rollNumber
+        this.marks = marks
+    }
+
+    getDetails() {
+        return `Name: ${this.name}, Roll No: ${this.rollNumber}, Marks: ${this.marks}`
+    }
+
+    getGrade() {
+        if (this.marks >= 90) return "A"
+        if (this.marks >= 75) return "B"
+        if (this.marks >= 50) return "C"
+        return "Fail"
+    }
+}
+
+const student1 = new Student("Chaitu", 101, 92)
+const student2 = new Student("Ravi", 102, 68)
+
+console.log("---- Student Details ----")
+console.log(student1.getDetails(), "Grade:", student1.getGrade())
+console.log(student2.getDetails(), "Grade:", student2.getGrade())
+
+
+/* =========================
+   Problem 2 — Inheritance
+========================= */
+
+class Vehicle {
+    constructor(brand, speed) {
+        this.brand = brand
+        this.speed = speed
+    }
+
+    displayInfo() {
+        return `Brand: ${this.brand}, Speed: ${this.speed} km/h`
+    }
+}
+
+class Car extends Vehicle {
+    constructor(brand, speed, fuelType) {
+        super(brand, speed)
+        this.fuelType = fuelType
+    }
+
+    showCarDetails() {
+        return `${this.displayInfo()}, Fuel Type: ${this.fuelType}`
+    }
+}
+
+const myCar = new Car("Toyota", 180, "Petrol")
+
+console.log("---- Vehicle Details ----")
+console.log(myCar.displayInfo())
+console.log(myCar.showCarDetails())
+
+
+/* =========================
+   Problem 3 — Polymorphism
+========================= */
+
+class Payment {
+    pay(amount) {
+        console.log("Processing payment")
+    }
+}
+
+class CreditCardPayment extends Payment {
+    pay(amount) {
+        console.log(`Paid ₹${amount} using Credit Card`)
+    }
+}
+
+class UPIPayment extends Payment {
+    pay(amount) {
+        console.log(`Paid ₹${amount} using UPI`)
+    }
+}
+
+class CashPayment extends Payment {
+    pay(amount) {
+        console.log(`Paid ₹${amount} using Cash`)
+    }
+}
+
+const credit = new CreditCardPayment()
+const upi = new UPIPayment()
+const cash = new CashPayment()
+
+console.log("---- Payment System ----")
+credit.pay(500)
+upi.pay(500)
+cash.pay(500)
+
+</script>
+
+</body>
+</html>

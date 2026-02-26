@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Data Fetcher</title>
+</head>
+<body>
+
+<h2>Weather Data Fetcher</h2>
+
+<input type="text" id="city" placeholder="Enter City Name">
+<button onclick="getWeatherPromise()">Fetch (Promise)</button>
+<button onclick="getWeatherAsync()">Fetch (Async/Await)</button>
+
+<pre id="output"></pre>
+
+<script>
+const output = document.getElementById("output")
+
+const getCoordinates = (city) => {
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
+    return fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("City not found")
+            return res.json()
+        })
+        .then(data => {
+            if (!data.results) throw new Error("Invalid city name")
+            return data.results[0]
+        })
+}
+
+const getWeather = (lat, lon) => {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+    return fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("Weather fetch failed")
+            return res.json()
+        })
+}
+
+const formatReport = (city, weather) => `
+Weather Report for ${city}
+Temperature: ${weather.temperature}°C
+Wind Speed: ${weather.windspeed} km/h
+Time: ${weather.time}
+`
+
+const getWeatherPromise = () => {
+    const city = document.getElementById("city").value
+    output.textContent = "Loading..."
+
+    getCoordinates(city)
+        .then(loc => getWeather(loc.latitude, loc.longitude)
+            .then(data => formatReport(loc.name, data.current_weather))
+        )
+        .then(report => output.textContent = report)
+        .catch(err => output.textContent = `Error: ${err.message}`)
+}
+
+const getWeatherAsync = async () => {
+    try {
+        const city = document.getElementById("city").value
+        output.textContent = "Loading..."
+
+        const loc = await getCoordinates(city)
+        const data = await getWeather(loc.latitude, loc.longitude)
+
+        output.textContent = formatReport(loc.name, data.current_weather)
+    } catch (err) {
+        output.textContent = `Error: ${err.message}`
+    }
+}
+</script>
+
+</body>
+</html>

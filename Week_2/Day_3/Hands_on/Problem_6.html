@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Product Search</title>
+    <style>
+        body { font-family: Arial; margin: 50px; }
+        li { margin: 5px 0; }
+        #noResults { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>Product Search</h2>
+
+<input type="text" id="searchInput" placeholder="Search products...">
+
+<ul id="productList"></ul>
+<div id="noResults"></div>
+
+<script>
+const products = [
+    "Laptop",
+    "Mobile Phone",
+    "Headphones",
+    "Keyboard",
+    "Mouse",
+    "Monitor",
+    "Smart Watch",
+    "Tablet"
+]
+
+const searchInput = document.getElementById("searchInput")
+const productList = document.getElementById("productList")
+const noResults = document.getElementById("noResults")
+
+const renderProducts = (items) => {
+    productList.innerHTML = ""
+    items.forEach(product => {
+        const li = document.createElement("li")
+        li.textContent = product
+        productList.appendChild(li)
+    })
+}
+
+const filterProducts = () => {
+    const query = searchInput.value.toLowerCase()
+    const filtered = products.filter(p =>
+        p.toLowerCase().includes(query)
+    )
+
+    renderProducts(filtered)
+
+    noResults.textContent = filtered.length === 0 ? "No Results Found" : ""
+}
+
+searchInput.addEventListener("input", filterProducts)
+
+renderProducts(products)
+</script>
+
+</body>
+</html>

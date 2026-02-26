@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic To-Do List</title>
+    <style>
+        body { font-family: Arial; margin: 50px; }
+        li { margin: 10px 0; }
+        .completed { text-decoration: line-through; color: gray; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<h2>To-Do List</h2>
+
+<input type="text" id="taskInput" placeholder="Enter task">
+<button id="addBtn">Add Task</button>
+
+<ul id="taskList"></ul>
+
+<script>
+const taskInput = document.getElementById("taskInput")
+const addBtn = document.getElementById("addBtn")
+const taskList = document.getElementById("taskList")
+
+const createTaskElement = (task) => {
+    const li = document.createElement("li")
+    li.innerHTML = `
+        <span class="task-text">${task}</span>
+        <button data-action="complete">✔</button>
+        <button data-action="delete">❌</button>
+    `
+    return li
+}
+
+const addTask = () => {
+    const task = taskInput.value.trim()
+    if (!task) return
+    const li = createTaskElement(task)
+    taskList.appendChild(li)
+    taskInput.value = ""
+}
+
+const handleTaskActions = (e) => {
+    const action = e.target.dataset.action
+    if (!action) return
+
+    const li = e.target.closest("li")
+
+    if (action === "delete") {
+        li.remove()
+    }
+
+    if (action === "complete") {
+        li.querySelector(".task-text").classList.toggle("completed")
+    }
+}
+
+addBtn.addEventListener("click", addTask)
+taskList.addEventListener("click", handleTaskActions)
+</script>
+
+</body>
+</html>
