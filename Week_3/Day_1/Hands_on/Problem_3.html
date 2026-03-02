@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Cart</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .product { margin-bottom: 15px; }
+        .message { color: green; margin-left: 10px; }
+        button { padding: 5px 10px; }
+        #cart { font-weight: bold; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div id="cart">Cart Items: <span id="cartCount">0</span></div>
+
+<div class="product">
+    <span>Product 1</span>
+    <button class="addBtn">Add to Cart</button>
+    <span class="message"></span>
+</div>
+
+<div class="product">
+    <span>Product 2</span>
+    <button class="addBtn">Add to Cart</button>
+    <span class="message"></span>
+</div>
+
+<div class="product">
+    <span>Product 3</span>
+    <button class="addBtn">Add to Cart</button>
+    <span class="message"></span>
+</div>
+
+<div class="product">
+    <span>Product 4</span>
+    <button class="addBtn">Add to Cart</button>
+    <span class="message"></span>
+</div>
+
+<script>
+$(document).ready(function(){
+
+    var count = 0;
+
+    $(".addBtn").click(function(){
+
+        count++;
+        $("#cartCount").text(count);
+        $(this).prop("disabled", true);
+        $(this).next(".message").text("Added to cart");
+
+    });
+
+});
+</script>
+
+</body>
+</html>

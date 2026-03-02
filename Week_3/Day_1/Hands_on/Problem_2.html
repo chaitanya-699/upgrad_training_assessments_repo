@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAQ Section</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .faq-question {
+            cursor: pointer;
+            background: #f0f0f0;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background: #fafafa;
+        }
+        .active {
+            background: #d4edda;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+    <div class="faq-question">1. What courses do you offer?</div>
+    <div class="faq-answer">We offer Web Development, Data Science, and Cybersecurity.</div>
+
+    <div class="faq-question">2. What is the course duration?</div>
+    <div class="faq-answer">Courses range from 3 to 6 months.</div>
+
+    <div class="faq-question">3. Do you provide certificates?</div>
+    <div class="faq-answer">Yes, certificates are provided after completion.</div>
+
+    <div class="faq-question">4. Is placement support available?</div>
+    <div class="faq-answer">Yes, we provide placement assistance.</div>
+
+    <div class="faq-question">5. Are classes online or offline?</div>
+    <div class="faq-answer">Both online and offline modes are available.</div>
+</div>
+
+<script>
+$(document).ready(function(){
+
+    $(".faq-question").click(function(){
+        $(this).next(".faq-answer").slideToggle();
+        $(this).toggleClass("active");
+    });
+
+});
+</script>
+
+</body>
+</html>

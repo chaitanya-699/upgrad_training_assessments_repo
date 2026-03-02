@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 8px; }
+        .completed { text-decoration: line-through; color: gray; }
+        button { margin-left: 5px; }
+    </style>
+</head>
+<body>
+
+<h2>To-Do List</h2>
+
+<input type="text" id="taskInput" placeholder="Enter new task">
+<button id="addTask">Add</button>
+
+<p>Total Tasks: <span id="totalCount">0</span></p>
+<p>Completed Tasks: <span id="completedCount">0</span></p>
+
+<ul id="taskList"></ul>
+
+<script>
+$(document).ready(function(){
+
+    function updateCounts(){
+        $("#totalCount").text($("#taskList li").length);
+        $("#completedCount").text($("#taskList li.completed").length);
+    }
+
+    $("#addTask").click(function(){
+
+        var task = $("#taskInput").val().trim();
+
+        if(task !== ""){
+            $("#taskList").append(
+                "<li>" + task + 
+                "<button class='completeBtn'>Complete</button>" +
+                "<button class='deleteBtn'>Delete</button></li>"
+            );
+            $("#taskInput").val("");
+            updateCounts();
+        }
+
+    });
+
+    $("#taskList").on("click", ".completeBtn", function(){
+        $(this).parent().toggleClass("completed");
+        updateCounts();
+    });
+
+    $("#taskList").on("click", ".deleteBtn", function(){
+        $(this).parent().remove();
+        updateCounts();
+    });
+
+});
+</script>
+
+</body>
+</html>
